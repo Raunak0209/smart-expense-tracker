@@ -16,8 +16,7 @@ form.addEventListener("submit", function (e) {
   const expense = {
     amount: Number(amount.value),
     category: category.value,
-    date: date.value,
-    description: description.value
+    date: date.value
   };
 
   expenses.push(expense);
@@ -41,36 +40,42 @@ function render() {
         <td>${e.date}</td>
         <td>${e.category}</td>
         <td>₹${e.amount}</td>
-        <td><button onclick="removeExpense(${index})">❌</button></td>
+        <td>
+          <button onclick="removeExpense(${index})">❌</button>
+        </td>
       </tr>
     `;
   });
 
   totalAmount.textContent = `₹${total}`;
 
-  const currentMonth = new Date().getMonth();
+  const month = new Date().getMonth();
   const monthly = expenses
-    .filter(e => new Date(e.date).getMonth() === currentMonth)
+    .filter(e => new Date(e.date).getMonth() === month)
     .reduce((sum, e) => sum + e.amount, 0);
 
   monthlyAmount.textContent = `₹${monthly}`;
 
-  const top = Object.keys(categoryMap).reduce((a, b) =>
-    categoryMap[a] > categoryMap[b] ? a : b, "-"
-  );
-  topCategory.textContent = top;
+  topCategory.textContent =
+    Object.keys(categoryMap).length
+      ? Object.keys(categoryMap).reduce((a, b) =>
+          categoryMap[a] > categoryMap[b] ? a : b
+        )
+      : "-";
 
   updateCharts(categoryMap);
 }
 
 // REMOVE
 function removeExpense(index) {
-  expenses.splice(index, 1);
-  localStorage.setItem("expenses", JSON.stringify(expenses));
-  render();
+  if (confirm("Delete this expense?")) {
+    expenses.splice(index, 1);
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+    render();
+  }
 }
 
-// CHARTS
+// CHARTS (RESPONSIVE)
 function updateCharts(data) {
   const labels = Object.keys(data);
   const values = Object.values(data);
@@ -78,28 +83,30 @@ function updateCharts(data) {
   if (pieChart) pieChart.destroy();
   if (barChart) barChart.destroy();
 
+  if (labels.length === 0) return;
+
   pieChart = new Chart(document.getElementById("pieChart"), {
     type: "pie",
-    data: { labels, datasets: [{ data: values }] }
+    data: { labels, datasets: [{ data: values }] },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
+    }
   });
 
   barChart = new Chart(document.getElementById("barChart"), {
     type: "bar",
-    data: { labels, datasets: [{ data: values }] }
+    data: { labels, datasets: [{ data: values }] },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
+    }
   });
 }
 
 // DARK MODE
 themeToggle.onclick = () => {
   document.body.classList.toggle("dark");
-  localStorage.setItem(
-    "theme",
-    document.body.classList.contains("dark") ? "dark" : "light"
-  );
 };
-
-if (localStorage.getItem("theme") === "dark") {
-  document.body.classList.add("dark");
-}
 
 render();
