@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Expense Tracker</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <header>
+      <h1>💰 Smart Expense Tracker</h1>
+      <button id="themeToggle">🌙</button>
+    </header>
+
+    <!-- SUMMARY CARDS -->
+    <section class="summary">
+      <div class="card">
+        <h3>Total Expenses</h3>
+        <p id="totalAmount">₹0</p>
+      </div>
+      <div class="card">
+        <h3>This Month</h3>
+        <p id="monthlyAmount">₹0</p>
+      </div>
+      <div class="card">
+        <h3>Top Category</h3>
+        <p id="topCategory">-</p>
+      </div>
+    </section>
+
+    <!-- CHARTS -->
+    <section class="charts">
+      <canvas id="pieChart"></canvas>
+      <canvas id="barChart"></canvas>
+    </section>
+
+    <!-- FORM -->
+    <section class="form-section">
+      <h2>Add Expense</h2>
+      <form id="expenseForm">
+        <input type="number" id="amount" placeholder="Amount" required />
+        <select id="category">
+          <option>Food</option>
+          <option>Travel</option>
+          <option>Shopping</option>
+          <option>Rent</option>
+          <option>Utilities</option>
+          <option>Others</option>
+        </select>
+        <input type="date" id="date" required />
+        <input type="text" id="description" placeholder="Description" />
+        <button type="submit">Add Expense</button>
+      </form>
+    </section>
+
+    <!-- LIST -->
+    <section class="list-section">
+      <h2>Expense List</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Amount</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="expenseList"></tbody>
+      </table>
+    </section>
+
+  </div>
+
+  <!-- JS -->
+  <script src="js/app.js"></script>
+</body>
+</html>
