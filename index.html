@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Smart Expense Tracker</title>
 
-  <!-- CSS -->
   <link rel="stylesheet" href="css/style.css">
-
-  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -21,7 +18,7 @@
       <button id="themeToggle">🌙</button>
     </header>
 
-    <!-- SUMMARY CARDS -->
+    <!-- SUMMARY -->
     <section class="summary">
       <div class="card">
         <h3>Total Expenses</h3>
@@ -37,10 +34,14 @@
       </div>
     </section>
 
-    <!-- CHARTS -->
+    <!-- CHARTS (STACK DOWN ONLY) -->
     <section class="charts">
-      <canvas id="pieChart"></canvas>
-      <canvas id="barChart"></canvas>
+      <div class="chart-box">
+        <canvas id="pieChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <canvas id="barChart"></canvas>
+      </div>
     </section>
 
     <!-- FORM -->
@@ -49,12 +50,12 @@
       <form id="expenseForm">
         <input type="number" id="amount" placeholder="Amount" required />
         <select id="category">
-          <option>Food</option>
-          <option>Travel</option>
-          <option>Shopping</option>
-          <option>Rent</option>
-          <option>Utilities</option>
-          <option>Others</option>
+          <option value="Food">Food</option>
+          <option value="Travel">Travel</option>
+          <option value="Shopping">Shopping</option>
+          <option value="Rent">Rent</option>
+          <option value="Utilities">Utilities</option>
+          <option value="Others">Others</option>
         </select>
         <input type="date" id="date" required />
         <input type="text" id="description" placeholder="Description" />
@@ -80,7 +81,6 @@
 
   </div>
 
-  <!-- JS -->
   <script src="js/app.js"></script>
 </body>
 </html>
