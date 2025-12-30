@@ -1,3 +1,9 @@
+/* REMOVE HORIZONTAL SCROLL */
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 :root {
   --bg: #f4f6f8;
   --card: #ffffff;
@@ -26,8 +32,9 @@ body {
 /* CONTAINER */
 .container {
   max-width: 1200px;
+  width: 100%;
   margin: auto;
-  padding-bottom: 30px;
+  padding: 0 16px 30px;
 }
 
 /* HEADER */
@@ -69,8 +76,8 @@ header button {
 }
 
 .card h3 {
-  margin: 0;
   font-size: 14px;
+  margin: 0;
 }
 
 .card p {
@@ -79,28 +86,29 @@ header button {
   margin-top: 8px;
 }
 
-/* CHARTS */
+/* CHARTS – VERTICAL ONLY */
 .charts {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column; /* ⬇️ DOWN ONLY */
   gap: 20px;
   padding: 0 20px;
 }
 
-.charts canvas {
+.chart-box {
   background: var(--card);
   padding: 15px;
   border-radius: 10px;
-  max-height: 280px;
+  height: 320px;
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 /* FORM */
 .form-section {
   padding: 20px;
-}
-
-.form-section h2 {
-  font-size: 18px;
 }
 
 form {
@@ -147,11 +155,4 @@ td button {
   background: transparent;
   border: none;
   cursor: pointer;
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .charts {
-    grid-template-columns: 1fr;
-  }
 }
